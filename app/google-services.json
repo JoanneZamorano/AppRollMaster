@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "630466360542",
+    "project_id": "approllmaster",
+    "storage_bucket": "approllmaster.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:630466360542:android:669c95f21ce2c878f0be4f",
+        "android_client_info": {
+          "package_name": "com.example.approllmaster"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDt298nrrpVsF2QFAkREAbXt8tpictGnZM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
