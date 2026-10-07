@@ -2,9 +2,9 @@ package com.example.approllmaster.models
 
 data class Partida(
     val idPartida: String = "",
-    val codigoSala: String = "",      // por ejemplo ROLL84
+    val codigoSala: String = "",//por ejemplo ROLL84
     val idMaster: String = "",
-    val estado: String = "ESPERA",    // ESPERA/EN_COMBATE/FINALIZADA
+    val estado: String = "ESPERA",// ESPERA/EN_COMBATE/FINALIZADA
     val fechaCreacion: Long = System.currentTimeMillis()
 )
 
