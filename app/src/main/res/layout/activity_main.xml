@@ -1,19 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:padding="24dp">
+
+    <!-- Header de bienvenida -->
+    <TextView
+        android:id="@+id/tvBienvenida"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="¡Saludos, Aventurero!"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/btnCerrarSesion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/tvSubtituloMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="¿Qué deseas hacer hoy en RollMaster?"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvBienvenida" />
+
+    <!-- botón pequeño para cerrar sesión (arriba a la derecha) -->
+    <Button
+        android:id="@+id/btnCerrarSesion"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Salir"
+        app:layout_constraintBottom_toBottomOf="@+id/tvBienvenida"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvBienvenida" />
+
+    <!-- contenedor central con las opciones principales -->
+    <LinearLayout
+        android:id="@+id/layoutOpciones"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtituloMenu">
+
+        <!-- Opción 1: mis personajes -->
+        <Button
+            android:id="@+id/btnMisPersonajes"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginBottom="16dp"
+            android:text="Mis Personajes"
+            android:textSize="16sp" />
+
+        <!-- Opción 2: crear partida (Máster) -->
+        <Button
+            android:id="@+id/btnCrearPartida"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:layout_marginBottom="16dp"
+            android:text="Crear Partida (Máster)"
+            android:textSize="16sp" />
+
+        <!-- Opción 3: unirse a partida (Jugador) -->
+        <Button
+            android:id="@+id/btnUnirsePartida"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="Unirse a Partida"
+            android:textSize="16sp" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
