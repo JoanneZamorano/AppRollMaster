@@ -12,20 +12,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppRollMaster">
         <activity
+            android:name=".CharacterListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CreateCharacterActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- pantalla de registro -->
+        </activity> <!-- pantalla de registro -->
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" />
-
-        <!-- pantalla principal/menu -->
+            android:exported="false" /> <!-- pantalla principal/menu -->
         <activity
             android:name=".MainActivity"
             android:exported="false" />

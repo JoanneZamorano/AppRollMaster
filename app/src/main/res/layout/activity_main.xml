@@ -62,7 +62,16 @@
             android:text="Mis Personajes"
             android:textSize="16sp" />
 
-        <!-- Opción 2: crear partida (Máster) -->
+        <!-- Opción 2: crear personaje NUEVO -->
+        <Button
+            android:id="@+id/btnCrearPersonajeMenu"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginBottom="12dp"
+            android:text="Crear Nuevo Personaje"
+            android:textSize="16sp" />
+
+        <!-- Opción 3: crear partida (Máster) -->
         <Button
             android:id="@+id/btnCrearPartida"
             android:layout_width="match_parent"
@@ -71,7 +80,7 @@
             android:text="Crear Partida (Máster)"
             android:textSize="16sp" />
 
-        <!-- Opción 3: unirse a partida (Jugador) -->
+        <!-- Opción 4: unirse a partida (Jugador) -->
         <Button
             android:id="@+id/btnUnirsePartida"
             android:layout_width="match_parent"

@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
                 }
         }
 
-        // 1-cerrar sesion
+        // Cerrar sesion
         binding.btnCerrarSesion.setOnClickListener {
             authRepository.cerrarSesion()
             val intent = Intent(this, LoginActivity::class.java)
@@ -40,9 +40,15 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
 
-        // 2- mis personajes
+        // 1- mis personajes
         binding.btnMisPersonajes.setOnClickListener {
             Toast.makeText(this, "Próximamente: lista de personajes", Toast.LENGTH_SHORT).show()
+        }
+
+        // 2 - crear NUEVO personaje -> Abre el formulario directamente
+        binding.btnCrearPersonajeMenu.setOnClickListener {
+            val intent = Intent(this, CreateCharacterActivity::class.java)
+            startActivity(intent)
         }
 
         // 3 -crear partida (Master)
