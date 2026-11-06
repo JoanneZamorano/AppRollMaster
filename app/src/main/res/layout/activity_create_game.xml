@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp">
+
+    <TextView
+        android:id="@+id/tvTituloCrearSala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Crear Sala (Máster)"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvSubtituloCrearSala"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:text="Inicia una sesión de rol y genera un código de acceso"
+        android:textSize="13sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloCrearSala" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilNombrePartida"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Nombre de la partida / Campaña"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtituloCrearSala">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etNombrePartida"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textCapSentences" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnGenerarPartida"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:layout_marginTop="10dp"
+        android:text="Abrir Sala de Juego"
+        app:layout_constraintTop_toBottomOf="@+id/tilNombrePartida" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnVolverMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGenerarPartida" />
+
+    <!-- Sección de Salas Activas del Máster -->
+    <TextView
+        android:id="@+id/tvTituloMisSalas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Tus Salas Activas"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGenerarPartida" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvMisPartidas"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnVolverMenu"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloMisSalas"
+        tools:listitem="@layout/item_partida_master" />
+
+    <TextView
+        android:id="@+id/tvSinPartidas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Aún no tienes partidas creadas"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="14sp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnVolverMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloMisSalas" />
+
+    <Button
+        android:id="@+id/btnVolverMenu"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VOLVER AL MENÚ"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

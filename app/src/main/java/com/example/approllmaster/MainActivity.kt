@@ -42,7 +42,8 @@ class MainActivity : AppCompatActivity() {
 
         // 1- mis personajes
         binding.btnMisPersonajes.setOnClickListener {
-            Toast.makeText(this, "Próximamente: lista de personajes", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, CharacterListActivity::class.java)
+            startActivity(intent)
         }
 
         // 2 - crear NUEVO personaje -> Abre el formulario directamente
@@ -53,12 +54,14 @@ class MainActivity : AppCompatActivity() {
 
         // 3 -crear partida (Master)
         binding.btnCrearPartida.setOnClickListener {
-            Toast.makeText(this, "Próximamente: crear sala de partida", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, CreateGameActivity::class.java)
+            startActivity(intent)
         }
 
         // 4- unirse a Partida (Jugador)
         binding.btnUnirsePartida.setOnClickListener {
-            Toast.makeText(this, "Próximamente: unirse con código PIN", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, JoinGameActivity::class.java)
+            startActivity(intent)
         }
     }
 }

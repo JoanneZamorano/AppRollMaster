@@ -32,6 +32,9 @@
         <activity
             android:name=".MainActivity"
             android:exported="false" />
+        <activity android:name=".CreateGameActivity" />
+        <activity android:name=".JoinGameActivity" />
+        <activity android:name=".SelectMonstersActivity" />
     </application>
 
 </manifest>
