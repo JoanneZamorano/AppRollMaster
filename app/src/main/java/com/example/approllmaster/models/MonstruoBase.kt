@@ -7,5 +7,6 @@ data class MonstruoBase(
     val armadura: Int = 10,
     val ataque: String = "+2",
     val esJefe: Boolean = false,
-    var cantidadSeleccionada: Int = 0
+    var cantidadSeleccionada: Int = 0,
+    val avatarUrl: String = ""
 )

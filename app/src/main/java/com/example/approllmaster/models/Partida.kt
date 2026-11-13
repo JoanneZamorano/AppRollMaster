@@ -9,14 +9,6 @@ data class Partida(
     val fechaCreacion: Long = System.currentTimeMillis()
 )
 
-data class Combatiente(
-    val idCombatiente: String = "",
-    val nombre: String = "",
-    val esEnemigo: Boolean = false,
-    val iniciativa: Int = 0,
-    val saludMax: Int = 100,
-    var saludActual: Int = 100
-)
 
 data class TiradaDado(
     val idTirada: String = "",

@@ -1,5 +1,6 @@
 package com.example.approllmaster
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
@@ -8,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.approllmaster.databinding.ActivityJoinGameBinding
 import com.example.approllmaster.models.Personaje
 import com.example.approllmaster.repository.AuthRepository
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 
 class JoinGameActivity : AppCompatActivity() {
@@ -16,7 +18,6 @@ class JoinGameActivity : AppCompatActivity() {
     private val authRepository = AuthRepository()
     private val db = FirebaseFirestore.getInstance()
 
-    // Lista en memoria de los personajes del jugador
     private val misPersonajes = mutableListOf<Personaje>()
     private var personajeSeleccionado: Personaje? = null
 
@@ -83,26 +84,56 @@ class JoinGameActivity : AppCompatActivity() {
 
         mostrarCarga(true)
 
-        // Buscar si existe una partida con ese código
         db.collection("partidas")
             .whereEqualTo("codigoSala", codigo)
             .whereEqualTo("estado", "ESPERA")
             .get()
             .addOnSuccessListener { snapshot ->
-                mostrarCarga(false)
                 if (!snapshot.isEmpty) {
                     val docPartida = snapshot.documents[0]
                     val idPartida = docPartida.id
+                    val nombrePartida = docPartida.getString("nombrePartida") ?: "Partida"
+                    val heroe = personajeSeleccionado!!
+                    val uidJugador = authRepository.currentUser?.uid ?: ""
+                    val esGuerrero = heroe.clase.uppercase() == "GUERRERO"
 
-                    Toast.makeText(
-                        this,
-                        "¡Unido a la partida con ${personajeSeleccionado?.nombre}!",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    val datosHeroe = hashMapOf<String, Any>(
+                        "id" to (heroe.idPersonaje.ifEmpty { uidJugador }),
+                        "idUsuario" to uidJugador,
+                        "nombre" to heroe.nombre,
+                        "tipo" to "JUGADOR",
+                        "claseOEstado" to heroe.clase,
+                        "psActuales" to heroe.saludMax,
+                        "psMaximos" to heroe.saludMax,
+                        "ca" to (if (esGuerrero) 15 else 12),
+                        "bonoAtaque" to (if (esGuerrero) 4 else 5),
+                        "ordenTurno" to 0,
+                        "avatarUrl" to heroe.avatarUrl
+                    )
 
-                    // Próximo paso: pasar a la pantalla de Mesa de Combate
+                    db.collection("partidas").document(idPartida)
+                        .update(
+                            "combatientes", FieldValue.arrayUnion(datosHeroe),
+                            "ultimoLog", "¡${heroe.nombre} (${heroe.clase}) se ha unido a la sala!"
+                        )
+                        .addOnSuccessListener {
+                            mostrarCarga(false)
+                            val intent = Intent(this, CombatTableActivity::class.java).apply {
+                                putExtra("ID_PARTIDA", idPartida)
+                                putExtra("CODIGO_SALA", codigo)
+                                putExtra("NOMBRE_PARTIDA", nombrePartida)
+                                putExtra("ROL_USUARIO", "JUGADOR")
+                            }
+                            startActivity(intent)
+                            finish()
+                        }
+                        .addOnFailureListener { e ->
+                            mostrarCarga(false)
+                            Toast.makeText(this, "Error al entrar: ${e.message}", Toast.LENGTH_SHORT).show()
+                        }
                 } else {
-                    binding.tilCodigoSala.error = "Código no encontrado o sala cerrada"
+                    mostrarCarga(false)
+                    binding.tilCodigoSala.error = "Código no encontrado o combate ya iniciado"
                 }
             }
             .addOnFailureListener { e ->

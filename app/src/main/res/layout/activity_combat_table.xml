@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:background="#F5F5F7">
+
+    <!-- Cabecera de la Mesa -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardCabeceraMesa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="3dp"
+        app:cardBackgroundColor="#311B92"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp">
+
+            <TextView
+                android:id="@+id/tvNombreSalaMesa"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toStartOf="@+id/btnPanelSonidos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Sala Mazmorra" />
+
+            <TextView
+                android:id="@+id/tvEstadoYSala"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:textColor="#D1C4E9"
+                android:textSize="13sp"
+                app:layout_constraintEnd_toStartOf="@+id/btnPanelSonidos"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvNombreSalaMesa"
+                tools:text="Código: ROLL67  •  ANTESALA" />
+
+            <!-- Botón de Sonidos (Solo visible para el Máster) -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnPanelSonidos"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="🔊 Sonidos"
+                android:textColor="@android:color/white"
+                android:textSize="12sp"
+                android:visibility="gone"
+                app:strokeColor="#B39DDB"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Banner de Log / Última acción en tiempo real -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardLogCombate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="1dp"
+        app:cardBackgroundColor="#EDE7F6"
+        app:strokeWidth="1dp"
+        app:strokeColor="#D1C4E9"
+        app:layout_constraintTop_toBottomOf="@+id/cardCabeceraMesa">
+
+        <TextView
+            android:id="@+id/tvUltimoLog"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:lineSpacingExtra="2dp"
+            android:padding="12dp"
+            android:textColor="#4527A0"
+            android:textSize="13sp"
+            tools:text="Nairda ataca a Goblin Explorador:\nImpacto: 20 (D20: 16 + 4) vs CA 14 → ¡Acierta!\nDaño: 8 PS" />
+    </com.google.android.material.card.MaterialCardView>
+
+    <!-- Título de la lista -->
+    <TextView
+        android:id="@+id/tvTituloListaCombatientes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="Participantes en Sala"
+        android:textColor="#212121"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardLogCombate" />
+
+    <!-- Lista de combatientes en tiempo real -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCombatientes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/layoutAccionesInferior"
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloListaCombatientes"
+        tools:listitem="@layout/item_combatiente" />
+
+    <!-- Contenedor inferior dinámico según fase y turno -->
+    <LinearLayout
+        android:id="@+id/layoutAccionesInferior"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Botón del Máster en Antesala -->
+        <Button
+            android:id="@+id/btnSortearEIniciar"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:backgroundTint="#2E7D32"
+            android:text="Sortear Turnos e Iniciar Combate"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            tools:visibility="visible" />
+
+        <!-- Mensaje de espera para jugadores en Antesala -->
+        <TextView
+            android:id="@+id/tvEsperandoMaster"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="Esperando a que el Máster inicie el combate..."
+            android:textColor="#616161"
+            android:textSize="14sp"
+            android:visibility="gone" />
+
+        <!-- Botón de acción cuando es TU turno en combate -->
+        <Button
+            android:id="@+id/btnTirarDadosTurno"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:backgroundTint="#D84315"
+            android:text="⚔️ ¡ES TU TURNO! Tirar Dado D20 y Atacar"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
+        <!-- Botón Salir -->
+        <Button
+            android:id="@+id/btnSalirMesa"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ABANDONAR SALA" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,10 +29,23 @@ class MonstruoSeleccionAdapter(
 
         with(holder.binding) {
             tvNombreMonstruo.text = monstruo.nombre
-            tvStatsMonstruo.text = "❤️ PS: ${monstruo.vida} | 🛡️ CA: ${monstruo.armadura} | ⚔️ Atq: ${monstruo.ataque}"
+            tvStatsMonstruo.text = "PS: ${monstruo.vida} | CA: ${monstruo.armadura} | Atq: ${monstruo.ataque}"
             tvCantidad.text = monstruo.cantidadSeleccionada.toString()
 
             chipJefe.visibility = if (monstruo.esJefe) View.VISIBLE else View.GONE
+
+            // Cargar avatar local desde res/drawable
+            val url = monstruo.avatarUrl.trim()
+            val context = holder.itemView.context
+            val resDrawable = if (url.isNotEmpty()) {
+                context.resources.getIdentifier(url, "drawable", context.packageName)
+            } else 0
+
+            if (resDrawable != 0) {
+                ivAvatarMonstruo.setImageResource(resDrawable)
+            } else {
+                ivAvatarMonstruo.setImageResource(R.mipmap.ic_launcher)
+            }
 
             btnMas.setOnClickListener {
                 monstruo.cantidadSeleccionada++

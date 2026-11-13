@@ -22,10 +22,10 @@ class CreateCharacterActivity : AppCompatActivity() {
     private val avatares = listOf("Guerrero Valiente", "Mago Arcano", "Explorador", "Paladín")
 
     private val avatarUrls = mapOf(
-        "Guerrero Valiente" to "https://api.dicebear.com/7.x/bottts/png?seed=GuerreroValiente",
-        "Mago Arcano" to "https://api.dicebear.com/7.x/bottts/png?seed=MagoArcano",
-        "Explorador" to "https://api.dicebear.com/7.x/bottts/png?seed=Explorador",
-        "Paladín" to "https://api.dicebear.com/7.x/bottts/png?seed=Paladin"
+        "Guerrero Valiente" to "avatar_guerrero",
+        "Mago Arcano" to "avatar_mago",
+        "Explorador" to "avatar_explorador",
+        "Paladín" to "avatar_paladin"
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

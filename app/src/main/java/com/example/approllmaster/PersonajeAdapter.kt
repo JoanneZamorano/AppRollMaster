@@ -36,6 +36,17 @@ class PersonajeAdapter(
                 is Mago -> tvItemRecurso.text = "Maná: ${personaje.manaActual} / ${personaje.manaMax}"
                 else -> tvItemRecurso.text = "Recurso: 100 / 100"
             }
+            val url = personaje.avatarUrl.trim()
+            val context = holder.itemView.context
+            val resDrawable = if (url.isNotEmpty()) {
+                context.resources.getIdentifier(url, "drawable", context.packageName)
+            } else 0
+
+            if (resDrawable != 0) {
+                ivAvatarPersonaje.setImageResource(resDrawable)
+            } else {
+                ivAvatarPersonaje.setImageResource(R.mipmap.ic_launcher)
+            }
         }
     }
 

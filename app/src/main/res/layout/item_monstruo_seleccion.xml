@@ -17,15 +17,37 @@
         android:layout_height="wrap_content"
         android:padding="14dp">
 
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardAvatarMonstruo"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            app:cardCornerRadius="28dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <ImageView
+                android:id="@+id/ivAvatarMonstruo"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Avatar del monstruo"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/ic_launcher" />
+        </com.google.android.material.card.MaterialCardView>
+
         <TextView
             android:id="@+id/tvNombreMonstruo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="8dp"
             android:textSize="18sp"
             android:textStyle="bold"
             tools:text="Goblin Explorador"
             app:layout_constraintEnd_toStartOf="@+id/chipJefe"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardAvatarMonstruo"
             app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.chip.Chip
@@ -44,32 +66,34 @@
             android:id="@+id/tvStatsMonstruo"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="4dp"
             android:textSize="13sp"
             android:textColor="@android:color/darker_gray"
-            tools:text="❤️ PS: 15 | 🛡️ CA: 13 | ⚔️ Atq: +3"
-            app:layout_constraintEnd_toStartOf="@+id/layoutContador"
-            app:layout_constraintStart_toStartOf="parent"
+            tools:text="PS: 15 | CA: 13 | Atq: +3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cardAvatarMonstruo"
             app:layout_constraintTop_toBottomOf="@+id/tvNombreMonstruo" />
 
         <LinearLayout
             android:id="@+id/layoutContador"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             tools:ignore="TouchTargetSizeCheck"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/chipJefe">
+            app:layout_constraintTop_toBottomOf="@+id/tvStatsMonstruo">
 
             <Button
                 android:id="@+id/btnMenos"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:minWidth="44dp"
+                android:minHeight="44dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:insetLeft="0dp"
@@ -91,10 +115,10 @@
             <Button
                 android:id="@+id/btnMas"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
+                android:minWidth="44dp"
+                android:minHeight="44dp"
                 android:insetTop="0dp"
                 android:insetBottom="0dp"
                 android:insetLeft="0dp"

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="180dp"
+    android:height="180dp"
+    android:viewportWidth="100"
+    android:viewportHeight="100">
+
+    <!-- Silueta hexagonal del D20 -->
+    <path
+        android:fillColor="#4A148C"
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="3"
+        android:pathData="M50,4 L92,28 L92,72 L50,96 L8,72 L8,28 Z" />
+
+    <!-- Triángulo central donde va el número -->
+    <path
+        android:fillColor="#311B92"
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="2.2"
+        android:pathData="M50,20 L80,68 L20,68 Z" />
+
+    <!-- Líneas de facetas internas del icosaedro -->
+    <path
+        android:strokeColor="#FFD54F"
+        android:strokeWidth="1.8"
+        android:pathData="M50,4 L50,20 M92,28 L80,68 M8,28 L20,68 M50,96 L80,68 M50,96 L20,68 M8,28 L50,20 M92,28 L50,20 M8,72 L20,68 M92,72 L80,68" />
+</vector>
