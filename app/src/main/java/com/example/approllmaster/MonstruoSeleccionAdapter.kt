@@ -1,8 +1,10 @@
 package com.example.approllmaster
 
+import android.graphics.Matrix
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.approllmaster.databinding.ItemMonstruoSeleccionBinding
 import com.example.approllmaster.models.MonstruoBase
@@ -45,6 +47,26 @@ class MonstruoSeleccionAdapter(
                 ivAvatarMonstruo.setImageResource(resDrawable)
             } else {
                 ivAvatarMonstruo.setImageResource(R.mipmap.ic_launcher)
+            }
+
+            // Recorte superior (Top-Crop) para que siempre se vea la cabeza de la criatura
+            ivAvatarMonstruo.scaleType = ImageView.ScaleType.MATRIX
+            ivAvatarMonstruo.post {
+                val drawable = ivAvatarMonstruo.drawable ?: return@post
+                val viewWidth = ivAvatarMonstruo.width.toFloat()
+                val viewHeight = ivAvatarMonstruo.height.toFloat()
+                val imgWidth = drawable.intrinsicWidth.toFloat()
+                val imgHeight = drawable.intrinsicHeight.toFloat()
+
+                if (imgWidth > 0f && imgHeight > 0f) {
+                    val scale = maxOf(viewWidth / imgWidth, viewHeight / imgHeight)
+                    val dx = (viewWidth - imgWidth * scale) / 2f
+                    val matrix = Matrix().apply {
+                        setScale(scale, scale)
+                        postTranslate(dx, 0f)
+                    }
+                    ivAvatarMonstruo.imageMatrix = matrix
+                }
             }
 
             btnMas.setOnClickListener {

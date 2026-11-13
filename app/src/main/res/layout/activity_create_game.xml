@@ -5,56 +5,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondo_negro"
     android:padding="20dp">
 
     <TextView
         android:id="@+id/tvTituloCrearSala"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Crear Sala (Máster)"
-        android:textSize="24sp"
+        android:layout_marginTop="12dp"
+        android:text="Crear Sala"
+        android:textColor="@color/texto_blanco"
+        android:textSize="26sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="480dp" />
 
     <TextView
         android:id="@+id/tvSubtituloCrearSala"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:text="Inicia una sesión de rol y genera un código de acceso"
-        android:textSize="13sp"
+        android:textColor="@color/texto_gris_claro"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTituloCrearSala" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloCrearSala"
+        app:layout_constraintWidth_max="480dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilNombrePartida"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:hint="Nombre de la partida / Campaña"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubtituloCrearSala">
+        android:textColorHint="@color/texto_gris_claro"
+        app:boxBackgroundColor="@color/superficie_tarjeta"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="@color/rojo_principal"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:hintTextColor="@color/rojo_claro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtituloCrearSala"
+        app:layout_constraintWidth_max="480dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etNombrePartida"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textCapSentences" />
+            android:inputType="textCapSentences"
+            android:maxLines="1"
+            android:textColor="@color/texto_blanco" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
         android:id="@+id/btnGenerarPartida"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="0dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="12dp"
         android:text="Abrir Sala de Juego"
-        app:layout_constraintTop_toBottomOf="@+id/tilNombrePartida" />
+        android:textColor="@color/texto_blanco"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilNombrePartida"
+        app:layout_constraintWidth_max="480dp" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/rojo_principal"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btnVolverMenu"
         app:layout_constraintEnd_toEndOf="parent"
@@ -64,23 +92,29 @@
     <!-- Sección de Salas Activas del Máster -->
     <TextView
         android:id="@+id/tvTituloMisSalas"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:text="Tus Salas Activas"
-        android:textSize="16sp"
+        android:textColor="@color/texto_blanco"
+        android:textSize="17sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnGenerarPartida" />
+        app:layout_constraintTop_toBottomOf="@+id/btnGenerarPartida"
+        app:layout_constraintWidth_max="480dp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMisPartidas"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/btnVolverMenu"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvTituloMisSalas"
+        app:layout_constraintWidth_max="480dp"
         tools:listitem="@layout/item_partida_master" />
 
     <TextView
@@ -88,7 +122,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aún no tienes partidas creadas"
-        android:textColor="@android:color/darker_gray"
+        android:textColor="@color/texto_gris_claro"
         android:textSize="14sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btnVolverMenu"
@@ -99,9 +133,13 @@
     <Button
         android:id="@+id/btnVolverMenu"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="VOLVER AL MENÚ"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:textColor="@color/rojo_claro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_max="480dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

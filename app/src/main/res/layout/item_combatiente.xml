@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardCombatiente"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginVertical="5dp"
+    app:cardBackgroundColor="@color/superficie_tarjeta"
     app:cardCornerRadius="12dp"
-    app:cardElevation="3dp"
-    app:strokeColor="#E0E0E0"
-    app:strokeWidth="1dp">
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -20,12 +21,11 @@
         <!-- Avatar circular del combatiente -->
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/cardAvatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            app:cardBackgroundColor="#311B92"
-            app:cardCornerRadius="24dp"
+            android:layout_width="52dp"
+            android:layout_height="52dp"
+            app:cardBackgroundColor="@color/fondo_negro"
+            app:cardCornerRadius="26dp"
             app:cardElevation="0dp"
-            app:strokeColor="#D4AF37"
             app:strokeWidth="0dp">
 
             <ImageView
@@ -41,28 +41,18 @@
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:layout_marginStart="14dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/tvNombreCombatiente"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/tvNombreCombatiente"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Guerrero SuperFuerte (GUERRERO)"
-                    android:textColor="#1C1B1F"
-                    android:textSize="15sp"
-                    android:textStyle="bold" />
-
-
-            </LinearLayout>
+                android:text="Guerrero SuperFuerte (GUERRERO)"
+                android:textColor="@color/texto_blanco"
+                android:textSize="15sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvStatsCombatiente"
@@ -70,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 android:text="PS: 257 / 300   |   CA: 15"
-                android:textColor="#49454F"
+                android:textColor="@color/texto_gris_claro"
                 android:textSize="12sp" />
 
             <ProgressBar
@@ -81,7 +71,8 @@
                 android:layout_marginTop="6dp"
                 android:max="100"
                 android:progress="100"
-                android:progressTint="#D32F2F" />
+                android:progressBackgroundTint="@color/borde_tarjeta"
+                android:progressTint="@color/rojo_principal" />
         </LinearLayout>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

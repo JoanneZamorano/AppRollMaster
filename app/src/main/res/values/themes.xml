@@ -1,9 +1,36 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.AppRollMaster" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <style name="Base.Theme.AppRollMaster" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/rojo_principal</item>
+        <item name="colorPrimaryVariant">@color/rojo_oscuro</item>
+        <item name="colorOnPrimary">@color/texto_blanco</item>
+
+        <item name="colorSecondary">@color/rojo_claro</item>
+        <item name="colorSecondaryVariant">@color/rojo_principal</item>
+        <item name="colorOnSecondary">@color/texto_blanco</item>
+
+        <item name="android:windowBackground">@drawable/bg_fondo_principal</item>
+        <item name="colorSurface">@color/superficie_tarjeta</item>
+        <item name="colorOnSurface">@color/texto_blanco</item>
+
+        <item name="android:textColorPrimary">@color/texto_blanco</item>
+        <item name="android:textColorSecondary">@color/texto_gris_claro</item>
+        <item name="android:statusBarColor">@color/fondo_negro</item>
+
+        <item name="alertDialogTheme">@style/TemaDialogoOscuro</item>
+        <item name="materialAlertDialogTheme">@style/TemaDialogoOscuro</item>
+
+        <item name="android:importantForAutofill">noExcludeDescendants</item>
     </style>
 
     <style name="Theme.AppRollMaster" parent="Base.Theme.AppRollMaster" />
+
+    <style name="TemaDialogoOscuro" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="android:background">@color/superficie_tarjeta</item>
+        <item name="colorSurface">@color/superficie_tarjeta</item>
+        <item name="android:textColorPrimary">@color/texto_blanco</item>
+        <item name="android:textColorSecondary">@color/texto_gris_claro</item>
+        <item name="android:textColorAlertDialogListItem">@color/texto_blanco</item>
+        <item name="textColorAlertDialogListItem">@color/texto_blanco</item>
+        <item name="colorPrimary">@color/rojo_claro</item>
+    </style>
 </resources>

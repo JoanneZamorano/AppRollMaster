@@ -11,33 +11,59 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppRollMaster">
+
         <activity
             android:name=".CombatTableActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".CharacterListActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".CreateCharacterActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
         <activity
             android:name=".LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity> <!-- pantalla de registro -->
+        </activity>
+
+        <!-- pantalla de registro -->
         <activity
             android:name=".RegisterActivity"
-            android:exported="false" /> <!-- pantalla principal/menu -->
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <!-- pantalla principal/menu -->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity android:name=".CreateGameActivity" />
-        <activity android:name=".JoinGameActivity" />
-        <activity android:name=".SelectMonstersActivity" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".CreateGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".JoinGameActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".SelectMonstersActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

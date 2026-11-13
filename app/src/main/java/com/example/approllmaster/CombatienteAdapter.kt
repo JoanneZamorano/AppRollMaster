@@ -3,7 +3,6 @@ package com.example.approllmaster
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.approllmaster.databinding.ItemCombatienteBinding
@@ -52,7 +51,6 @@ class CombatienteAdapter(
         holder.binding.pbVidaCombatiente.progress = porcentaje.coerceIn(0, 100)
 
         // Cargar avatar del personaje si tiene avatarUrl (recurso drawable o URL web)
-        // Imagen por defecto: icono de Android (ic_launcher), y si tiene avatarUrl se sustituye
         holder.binding.ivAvatarCombatiente.setImageResource(R.mipmap.ic_launcher)
 
         val url = combatiente.avatarUrl.trim()
@@ -82,33 +80,39 @@ class CombatienteAdapter(
         }
 
         // Atenuar imagen si está caído
-        holder.binding.ivAvatarCombatiente.alpha = if (estaMuerto) 0.4f else 1.0f
+        holder.binding.ivAvatarCombatiente.alpha = if (estaMuerto) 0.35f else 1.0f
 
-        // Colores del círculo y de la tarjeta
+        // Paleta oscura sin bordes excepto en el turno activo
         when {
             estaMuerto -> {
-                holder.binding.cardAvatar.setCardBackgroundColor(Color.parseColor("#757575"))
-                holder.binding.cardCombatiente.setCardBackgroundColor(Color.parseColor("#E0E0E0"))
-                holder.binding.cardCombatiente.strokeColor = Color.parseColor("#BDBDBD")
-                holder.binding.cardCombatiente.strokeWidth = 2
+                holder.binding.cardAvatar.setCardBackgroundColor(Color.parseColor("#1E1E1E"))
+                holder.binding.cardCombatiente.setCardBackgroundColor(Color.parseColor("#111113"))
+                holder.binding.cardCombatiente.strokeWidth = 0
                 holder.binding.tvNombreCombatiente.setTextColor(Color.parseColor("#757575"))
+                holder.binding.tvStatsCombatiente.setTextColor(Color.parseColor("#555555"))
             }
             esSuTurno -> {
-                holder.binding.cardAvatar.setCardBackgroundColor(Color.parseColor("#FF6D00"))
-                holder.binding.cardCombatiente.setCardBackgroundColor(Color.parseColor("#FFF3E0"))
-                holder.binding.cardCombatiente.strokeColor = Color.parseColor("#FF6D00")
-                holder.binding.cardCombatiente.strokeWidth = 6
-                holder.binding.tvNombreCombatiente.setTextColor(Color.parseColor("#1C1B1F"))
+                holder.binding.cardAvatar.setCardBackgroundColor(Color.parseColor("#B71C1C"))
+                holder.binding.cardCombatiente.setCardBackgroundColor(Color.parseColor("#3A1216"))
+                holder.binding.cardCombatiente.strokeColor = Color.parseColor("#E53935")
+                holder.binding.cardCombatiente.strokeWidth = 5
+                holder.binding.tvNombreCombatiente.setTextColor(Color.WHITE)
+                holder.binding.tvStatsCombatiente.setTextColor(Color.parseColor("#FFCDD2"))
+            }
+            combatiente.tipo == "ENEMIGO" -> {
+                holder.binding.cardAvatar.setCardBackgroundColor(Color.parseColor("#5C1920"))
+                holder.binding.cardCombatiente.setCardBackgroundColor(Color.parseColor("#1F1517"))
+                holder.binding.cardCombatiente.strokeWidth = 0
+                holder.binding.tvNombreCombatiente.setTextColor(Color.WHITE)
+                holder.binding.tvStatsCombatiente.setTextColor(Color.parseColor("#B0B0B0"))
             }
             else -> {
-                holder.binding.cardAvatar.setCardBackgroundColor(
-                    if (combatiente.tipo == "ENEMIGO") Color.parseColor("#8E0000") else Color.parseColor("#4A148C")
-                )
-                holder.binding.cardCombatiente.setCardBackgroundColor(Color.WHITE)
-                holder.binding.cardCombatiente.strokeColor =
-                    if (combatiente.tipo == "ENEMIGO") Color.parseColor("#FFCDD2") else Color.parseColor("#D1C4E9")
-                holder.binding.cardCombatiente.strokeWidth = 3
-                holder.binding.tvNombreCombatiente.setTextColor(Color.parseColor("#1C1B1F"))
+                // Héroes / Jugadores
+                holder.binding.cardAvatar.setCardBackgroundColor(Color.parseColor("#232938"))
+                holder.binding.cardCombatiente.setCardBackgroundColor(Color.parseColor("#181A20"))
+                holder.binding.cardCombatiente.strokeWidth = 0
+                holder.binding.tvNombreCombatiente.setTextColor(Color.WHITE)
+                holder.binding.tvStatsCombatiente.setTextColor(Color.parseColor("#B0B0B0"))
             }
         }
     }

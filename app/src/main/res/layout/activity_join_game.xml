@@ -5,59 +5,82 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondo_negro"
     android:padding="24dp">
 
     <TextView
         android:id="@+id/tvTituloUnirse"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Unirse a Partida"
-        android:textSize="26sp"
+        android:textColor="@color/texto_blanco"
+        android:textSize="28sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintWidth_max="480dp" />
 
     <TextView
         android:id="@+id/tvSubtituloUnirse"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
         android:text="Introduce el PIN de la sala facilitado por el Máster"
+        android:textColor="@color/texto_gris_claro"
         android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTituloUnirse" />
+        app:layout_constraintTop_toBottomOf="@+id/tvTituloUnirse"
+        app:layout_constraintWidth_max="480dp" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCodigoSala"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:hint="Código de Sala (ej. ROLL89)"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubtituloUnirse">
+        app:boxBackgroundColor="@color/superficie_tarjeta"
+        app:boxStrokeColor="@color/rojo_principal"
+        app:hintTextColor="@color/rojo_claro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSubtituloUnirse"
+        app:layout_constraintWidth_max="480dp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etCodigoSala"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textCapCharacters"
-            android:maxLines="1" />
+            android:maxLines="1"
+            android:textColor="@color/texto_blanco" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilSeleccionarPersonaje"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:hint="Selecciona tu personaje"
-        app:layout_constraintTop_toBottomOf="@+id/tilCodigoSala">
+        app:boxBackgroundColor="@color/superficie_tarjeta"
+        app:boxStrokeColor="@color/rojo_principal"
+        app:endIconTint="@color/rojo_claro"
+        app:hintTextColor="@color/rojo_claro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilCodigoSala"
+        app:layout_constraintWidth_max="480dp">
 
         <AutoCompleteTextView
             android:id="@+id/actvPersonaje"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="none"
+            android:textColor="@color/texto_blanco"
             tools:ignore="SpeakableTextPresentCheck" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -66,6 +89,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:indeterminateTint="@color/rojo_principal"
         android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -73,18 +97,26 @@
 
     <Button
         android:id="@+id/btnUnirseSala"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="56dp"
         android:layout_marginBottom="8dp"
         android:text="Entrar al Combate"
-        app:layout_constraintBottom_toTopOf="@+id/btnVolverMenuDesdeUnirse" />
+        android:textColor="@color/texto_blanco"
+        app:layout_constraintBottom_toTopOf="@+id/btnVolverMenuDesdeUnirse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_max="480dp" />
 
     <Button
         android:id="@+id/btnVolverMenuDesdeUnirse"
         style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Volver al Menú"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:textColor="@color/rojo_claro"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_max="480dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

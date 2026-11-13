@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondo_negro"
     android:fillViewport="true">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,13 +15,15 @@
             android:id="@+id/tvTituloCrear"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="Crear Nuevo Personaje"
-            android:textSize="24sp"
+            android:textColor="@color/texto_blanco"
+            android:textSize="28sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_max="480dp" />
 
         <TextView
             android:id="@+id/tvSubtituloCrear"
@@ -28,10 +31,35 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:text="Configura los datos, clase y atributos de tu héroe"
+            android:textColor="@color/texto_gris_claro"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvTituloCrear" />
+            app:layout_constraintTop_toBottomOf="@+id/tvTituloCrear"
+            app:layout_constraintWidth_max="480dp" />
+
+        <!-- Vista previa circular grande del avatar -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardPreviewAvatar"
+            android:layout_width="176dp"
+            android:layout_height="176dp"
+            android:layout_marginTop="20dp"
+            app:cardBackgroundColor="@color/superficie_tarjeta"
+            app:cardCornerRadius="88dp"
+            app:cardElevation="4dp"
+            app:strokeWidth="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubtituloCrear">
+
+            <ImageView
+                android:id="@+id/ivPreviewAvatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="Vista previa del avatar"
+                android:scaleType="centerCrop"
+                android:src="@drawable/avatar_guerrero" />
+        </com.google.android.material.card.MaterialCardView>
 
         <!-- Campo Nombre -->
         <com.google.android.material.textfield.TextInputLayout
@@ -39,18 +67,23 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:hint="Nombre del personaje"
+            app:boxBackgroundColor="@color/superficie_tarjeta"
+            app:boxStrokeColor="@color/rojo_principal"
+            app:hintTextColor="@color/rojo_claro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvSubtituloCrear">
+            app:layout_constraintTop_toBottomOf="@+id/cardPreviewAvatar"
+            app:layout_constraintWidth_max="480dp">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etNombrePersonaje"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPersonName"
-                android:maxLines="1" />
+                android:maxLines="1"
+                android:textColor="@color/texto_blanco" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Desplegable de Clase -->
@@ -59,18 +92,24 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:hint="Clase del personaje"
+            app:boxBackgroundColor="@color/superficie_tarjeta"
+            app:boxStrokeColor="@color/rojo_principal"
+            app:endIconTint="@color/rojo_claro"
+            app:hintTextColor="@color/rojo_claro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilNombrePersonaje">
+            app:layout_constraintTop_toBottomOf="@+id/tilNombrePersonaje"
+            app:layout_constraintWidth_max="480dp">
 
             <AutoCompleteTextView
                 android:id="@+id/actvClase"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:text="Guerrero" />
+                android:text="Guerrero"
+                android:textColor="@color/texto_blanco" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Desplegable de Avatar predefinido -->
@@ -79,32 +118,41 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="14dp"
             android:hint="Arquetipo de avatar"
+            app:boxBackgroundColor="@color/superficie_tarjeta"
+            app:boxStrokeColor="@color/rojo_principal"
+            app:endIconTint="@color/rojo_claro"
+            app:hintTextColor="@color/rojo_claro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilClase">
+            app:layout_constraintTop_toBottomOf="@+id/tilClase"
+            app:layout_constraintWidth_max="480dp">
 
             <AutoCompleteTextView
                 android:id="@+id/actvAvatar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
-                android:text="Guerrero Valiente" />
+                android:text="Guerrero Valiente"
+                android:textColor="@color/texto_blanco" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Titulo Atributos -->
+        <!-- Título Atributos -->
         <TextView
             android:id="@+id/tvLabelAtributos"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:text="Atributos iniciales (modificables)"
-            android:textSize="14sp"
+            android:layout_marginTop="20dp"
+            android:letterSpacing="0.05"
+            android:text="ATRIBUTOS INICIALES (MODIFICABLES)"
+            android:textColor="@color/rojo_claro"
+            android:textSize="12sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tilAvatar" />
+            app:layout_constraintTop_toBottomOf="@+id/tilAvatar"
+            app:layout_constraintWidth_max="480dp" />
 
         <!-- Salud Máxima -->
         <com.google.android.material.textfield.TextInputLayout
@@ -115,8 +163,11 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:hint="Salud máxima"
+            app:boxBackgroundColor="@color/superficie_tarjeta"
+            app:boxStrokeColor="@color/rojo_principal"
+            app:hintTextColor="@color/rojo_claro"
             app:layout_constraintEnd_toStartOf="@+id/tilRecurso"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tvLabelAtributos"
             app:layout_constraintTop_toBottomOf="@+id/tvLabelAtributos">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -124,7 +175,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:text="120" />
+                android:text="120"
+                android:textColor="@color/texto_blanco" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <!-- Recurso (Furia / Maná) -->
@@ -136,7 +188,10 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:hint="Furia máxima"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:boxBackgroundColor="@color/superficie_tarjeta"
+            app:boxStrokeColor="@color/rojo_principal"
+            app:hintTextColor="@color/rojo_claro"
+            app:layout_constraintEnd_toEndOf="@+id/tvLabelAtributos"
             app:layout_constraintStart_toEndOf="@+id/tilSalud"
             app:layout_constraintTop_toBottomOf="@+id/tvLabelAtributos">
 
@@ -145,14 +200,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
-                android:text="100" />
+                android:text="100"
+                android:textColor="@color/texto_blanco" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <ProgressBar
             android:id="@+id/progressBarCrear"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
+            android:indeterminateTint="@color/rojo_principal"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -163,11 +220,13 @@
             android:id="@+id/btnGuardarPersonaje"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:text="Guardar Personaje"
+            android:textColor="@color/texto_blanco"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/progressBarCrear" />
+            app:layout_constraintTop_toBottomOf="@+id/progressBarCrear"
+            app:layout_constraintWidth_max="480dp" />
 
         <!-- Botón Cancelar -->
         <Button
@@ -177,9 +236,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="Cancelar"
+            android:textColor="@color/rojo_claro"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnGuardarPersonaje" />
+            app:layout_constraintTop_toBottomOf="@+id/btnGuardarPersonaje"
+            app:layout_constraintWidth_max="480dp" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

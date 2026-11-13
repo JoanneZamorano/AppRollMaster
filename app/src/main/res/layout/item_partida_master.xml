@@ -7,10 +7,10 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="4dp"
     android:layout_marginVertical="6dp"
+    app:cardBackgroundColor="@color/superficie_tarjeta"
     app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="#E0E0E0">
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -22,12 +22,13 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:textColor="@color/texto_blanco"
             android:textSize="16sp"
             android:textStyle="bold"
-            tools:text="Campaña Las Minas de Phandelver"
             app:layout_constraintEnd_toStartOf="@+id/chipCodigo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Campaña Las Minas de Phandelver" />
 
         <TextView
             android:id="@+id/tvEstadoPartida"
@@ -35,20 +36,22 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="8dp"
+            android:textColor="@color/texto_gris_claro"
             android:textSize="13sp"
-            android:textColor="@android:color/darker_gray"
-            tools:text="Estado: ESPERA"
             app:layout_constraintEnd_toStartOf="@+id/chipCodigo"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNombrePartida" />
+            app:layout_constraintTop_toBottomOf="@+id/tvNombrePartida"
+            tools:text="Estado: ESPERA" />
 
         <com.google.android.material.chip.Chip
             android:id="@+id/chipCodigo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="6dp"
-            android:textColor="@android:color/white"
-            app:chipBackgroundColor="?attr/colorPrimary"
+            android:textColor="@color/texto_blanco"
+            android:textStyle="bold"
+            app:chipBackgroundColor="@color/rojo_principal"
+            app:chipStrokeWidth="0dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/btnEliminarPartida"
             app:layout_constraintTop_toTopOf="parent"
@@ -56,15 +59,17 @@
 
         <ImageButton
             android:id="@+id/btnEliminarPartida"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Eliminar partida"
-            android:src="@android:drawable/ic_menu_delete"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_delete_clean"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:tint="@android:color/holo_red_dark" />
+            app:tint="@color/texto_gris_claro" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>

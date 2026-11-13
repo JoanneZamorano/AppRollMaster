@@ -48,11 +48,20 @@ class CombatTableActivity : AppCompatActivity() {
 
         binding.tvNombreSalaMesa.text = nombrePartida
 
-        // El botón de sonidos solo es visible para el Máster
+        // La cuadrícula 2x2 de sonidos solo es visible para el Máster
         if (rolUsuario == "MASTER") {
-            binding.btnPanelSonidos.visibility = View.VISIBLE
-            binding.btnPanelSonidos.setOnClickListener {
-                mostrarPanelSonidosMaster()
+            binding.layoutSonidosMaster.visibility = View.VISIBLE
+            binding.btnSonidoEspadas.setOnClickListener {
+                reproducirSonidoEfecto(ToneGenerator.TONE_PROP_BEEP2, "Choque de Espadas")
+            }
+            binding.btnSonidoHechizo.setOnClickListener {
+                reproducirSonidoEfecto(ToneGenerator.TONE_CDMA_EMERGENCY_RINGBACK, "Bola de Fuego / Hechizo")
+            }
+            binding.btnSonidoRugido.setOnClickListener {
+                reproducirSonidoEfecto(ToneGenerator.TONE_CDMA_LOW_L, "Rugido de Monstruo")
+            }
+            binding.btnSonidoVictoria.setOnClickListener {
+                reproducirSonidoEfecto(ToneGenerator.TONE_PROP_ACK, "Fanfarria de Victoria")
             }
         }
 
@@ -231,7 +240,6 @@ class CombatTableActivity : AppCompatActivity() {
         if (listaActualCombatientes.isEmpty()) return
         val atacante = listaActualCombatientes[turnoActualIndex % listaActualCombatientes.size]
 
-        // Buscamos objetivos vivos del bando contrario
         val posiblesObjetivos = listaActualCombatientes.filter {
             it.psActuales > 0 && it.tipo != atacante.tipo
         }
@@ -241,18 +249,166 @@ class CombatTableActivity : AppCompatActivity() {
             return
         }
 
-        val nombresObjetivos = posiblesObjetivos.map {
-            "${it.nombre} (PS: ${it.psActuales}/${it.psMaximos} | CA: ${it.ca})"
-        }.toTypedArray()
+        val density = resources.displayMetrics.density
+        fun dp(valor: Int): Int = (valor * density).toInt()
 
-        AlertDialog.Builder(this)
-            .setTitle("${atacante.nombre}: Elige objetivo")
-            .setItems(nombresObjetivos) { _, which ->
-                val objetivo = posiblesObjetivos[which]
+        // Tarjeta principal del diálogo sin borde
+        val cardDialogo = com.google.android.material.card.MaterialCardView(this).apply {
+            setCardBackgroundColor(androidx.core.content.ContextCompat.getColor(context, R.color.superficie_tarjeta))
+            radius = 18 * density
+            cardElevation = 8 * density
+            strokeWidth = 0
+        }
+
+        val contenedorPrincipal = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+            setPadding(dp(20), dp(20), dp(20), dp(14))
+        }
+
+        // Título centrado
+        val tvTitulo = android.widget.TextView(this).apply {
+            text = "Elige objetivo"
+            setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.texto_blanco))
+            textSize = 20f
+            setTypeface(null, android.graphics.Typeface.BOLD)
+            gravity = android.view.Gravity.CENTER
+            setPadding(0, 0, 0, dp(14))
+        }
+        contenedorPrincipal.addView(tvTitulo)
+
+        // ScrollView por si hay muchos enemigos en sala
+        val scrollObjetivos = android.widget.ScrollView(this)
+        val listaBotones = android.widget.LinearLayout(this).apply {
+            orientation = android.widget.LinearLayout.VERTICAL
+        }
+
+        val dialog = AlertDialog.Builder(this)
+            .setView(cardDialogo)
+            .create()
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        for (objetivo in posiblesObjetivos) {
+            val cardOpcion = com.google.android.material.card.MaterialCardView(this).apply {
+                setCardBackgroundColor(android.graphics.Color.parseColor("#24242A"))
+                radius = 14 * density
+                cardElevation = 0f
+                strokeWidth = 0
+                isClickable = true
+                isFocusable = true
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    bottomMargin = dp(10)
+                }
+            }
+
+            val fila = android.widget.LinearLayout(this).apply {
+                orientation = android.widget.LinearLayout.HORIZONTAL
+                gravity = android.view.Gravity.CENTER_VERTICAL
+                setPadding(dp(12), dp(10), dp(14), dp(10))
+            }
+
+            // Avatar circular del objetivo
+            val cardAvatar = com.google.android.material.card.MaterialCardView(this).apply {
+                layoutParams = android.widget.LinearLayout.LayoutParams(dp(44), dp(44))
+                radius = 22 * density
+                cardElevation = 0f
+                strokeWidth = 0
+                setCardBackgroundColor(androidx.core.content.ContextCompat.getColor(context, R.color.fondo_negro))
+            }
+
+            val ivAvatar = android.widget.ImageView(this).apply {
+                layoutParams = android.view.ViewGroup.LayoutParams(
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                    android.view.ViewGroup.LayoutParams.MATCH_PARENT
+                )
+                scaleType = android.widget.ImageView.ScaleType.CENTER_CROP
+                setImageResource(R.mipmap.ic_launcher)
+
+                val url = objetivo.avatarUrl.trim()
+                if (url.isNotEmpty()) {
+                    val resDrawable = resources.getIdentifier(url, "drawable", packageName)
+                    val resMipmap = resources.getIdentifier(url, "mipmap", packageName)
+                    if (resDrawable != 0) setImageResource(resDrawable)
+                    else if (resMipmap != 0) setImageResource(resMipmap)
+                }
+            }
+            cardAvatar.addView(ivAvatar)
+            fila.addView(cardAvatar)
+
+            // Columna central: Nombre + PS/CA
+            val colTexto = android.widget.LinearLayout(this).apply {
+                orientation = android.widget.LinearLayout.VERTICAL
+                layoutParams = android.widget.LinearLayout.LayoutParams(
+                    0,
+                    android.view.ViewGroup.LayoutParams.WRAP_CONTENT,
+                    1f
+                ).apply {
+                    marginStart = dp(12)
+                    marginEnd = dp(8)
+                }
+            }
+
+            val tvNombre = android.widget.TextView(this).apply {
+                text = objetivo.nombre
+                setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.texto_blanco))
+                textSize = 15f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            }
+
+            val tvStats = android.widget.TextView(this).apply {
+                text = "PS: ${objetivo.psActuales}/${objetivo.psMaximos}  •  CA: ${objetivo.ca}"
+                setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.texto_gris_claro))
+                textSize = 12f
+                setPadding(0, dp(2), 0, 0)
+            }
+
+            colTexto.addView(tvNombre)
+            colTexto.addView(tvStats)
+            fila.addView(colTexto)
+
+            // Indicador de acción a la derecha
+            val tvAccion = android.widget.TextView(this).apply {
+                text = "›"
+                setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.rojo_claro))
+                textSize = 22f
+                setTypeface(null, android.graphics.Typeface.BOLD)
+            }
+            fila.addView(tvAccion)
+
+            cardOpcion.addView(fila)
+            cardOpcion.setOnClickListener {
+                dialog.dismiss()
                 ejecutarTiradaYAvanzarTurno(atacante, objetivo)
             }
-            .setNegativeButton("Cancelar", null)
-            .show()
+
+            listaBotones.addView(cardOpcion)
+        }
+
+        scrollObjetivos.addView(listaBotones)
+        contenedorPrincipal.addView(scrollObjetivos)
+
+        // Botón Cancelar estilizado abajo
+        val btnCancelar = com.google.android.material.button.MaterialButton(
+            this,
+            null,
+            android.R.attr.borderlessButtonStyle
+        ).apply {
+            text = "CANCELAR"
+            setTextColor(androidx.core.content.ContextCompat.getColor(context, R.color.rojo_claro))
+            layoutParams = android.widget.LinearLayout.LayoutParams(
+                android.view.ViewGroup.LayoutParams.MATCH_PARENT,
+                android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+            ).apply {
+                topMargin = dp(4)
+            }
+            setOnClickListener { dialog.dismiss() }
+        }
+        contenedorPrincipal.addView(btnCancelar)
+
+        cardDialogo.addView(contenedorPrincipal)
+        dialog.show()
     }
 
     private fun ejecutarTiradaYAvanzarTurno(atacante: Combatiente, objetivo: Combatiente) {
@@ -264,30 +420,28 @@ class CombatTableActivity : AppCompatActivity() {
 
         when {
             dadoD20 == 20 -> {
-                // Golpe Crítico (doble daño)
                 val dadoDanio = Random.nextInt(1, 9)
                 danio = (dadoDanio + 2) * 2
-                mensajeLog = "¡CRÍTICO! ${atacante.nombre} ataca a ${objetivo.nombre}:\n" +
-                        "• Ataque: $totalAtaque (D20: $dadoD20 + ${atacante.bonoAtaque}) vs CA ${objetivo.ca}\n" +
-                        "• Daño crítico: -$danio PS [(D8: $dadoDanio + 2) × 2]"
+                mensajeLog = "¡CRÍTICO! ${atacante.nombre} ataca a ${objetivo.nombre}\n" +
+                        "Ataque: $totalAtaque (D20: 20 + ${atacante.bonoAtaque}) vs CA ${objetivo.ca}\n" +
+                        "Daño crítico: -$danio PS [(D8: $dadoDanio + 2) x 2]"
             }
             dadoD20 == 1 -> {
-                // Pifia
-                mensajeLog = "¡PIFIA! ${atacante.nombre} ataca a ${objetivo.nombre}:\n" +
-                        "• Ataque: $totalAtaque (D20: 1 + ${atacante.bonoAtaque}) → Falla automáticamente"
+                mensajeLog = "¡PIFIA! ${atacante.nombre} ataca a ${objetivo.nombre}\n" +
+                        "Ataque: $totalAtaque (D20: 1 + ${atacante.bonoAtaque}) vs CA ${objetivo.ca}\n" +
+                        "Resultado: Fallo automático por pifia"
             }
             totalAtaque >= objetivo.ca -> {
-                // Impacto normal
                 val dadoDanio = Random.nextInt(1, 9)
                 danio = dadoDanio + 2
-                mensajeLog = "${atacante.nombre} ataca a ${objetivo.nombre}:\n" +
-                        "• Ataque: $totalAtaque (D20: $dadoD20 + ${atacante.bonoAtaque}) vs CA ${objetivo.ca} → ¡Acierta!\n" +
-                        "• Daño: -$danio PS (D8: $dadoDanio + 2)"
+                mensajeLog = "${atacante.nombre} ataca a ${objetivo.nombre}\n" +
+                        "Ataque: $totalAtaque (D20: $dadoD20 + ${atacante.bonoAtaque}) vs CA ${objetivo.ca} -> ¡Impacta!\n" +
+                        "Daño: -$danio PS (D8: $dadoDanio + 2)"
             }
             else -> {
-                // Fallo por armadura
-                mensajeLog = "${atacante.nombre} ataca a ${objetivo.nombre}:\n" +
-                        "• Ataque: $totalAtaque (D20: $dadoD20 + ${atacante.bonoAtaque}) vs CA ${objetivo.ca} → ¡Falla!"
+                mensajeLog = "${atacante.nombre} ataca a ${objetivo.nombre}\n" +
+                        "Ataque: $totalAtaque (D20: $dadoD20 + ${atacante.bonoAtaque}) vs CA ${objetivo.ca}\n" +
+                        "Resultado: El objetivo esquiva el golpe"
             }
         }
 
@@ -344,31 +498,6 @@ class CombatTableActivity : AppCompatActivity() {
             if (vida > 0) return candidato
         }
         return (indiceActual + 1) % total
-    }
-
-    private fun mostrarPanelSonidosMaster() {
-        val efectos = arrayOf(
-            "Choque de Espadas",
-            "Bola de Fuego / Hechizo",
-            "Rugido de Monstruo",
-            "Fanfarria de Victoria"
-        )
-
-        val tonos = intArrayOf(
-            ToneGenerator.TONE_PROP_BEEP2,
-            ToneGenerator.TONE_CDMA_EMERGENCY_RINGBACK,
-            ToneGenerator.TONE_CDMA_LOW_L,
-            ToneGenerator.TONE_PROP_ACK,
-            ToneGenerator.TONE_CDMA_ALERT_CALL_GUARD
-        )
-
-        AlertDialog.Builder(this)
-            .setTitle("Mesa de Sonidos del Máster")
-            .setItems(efectos) { _, which ->
-                reproducirSonidoEfecto(tonos[which], efectos[which])
-            }
-            .setNegativeButton("Cerrar", null)
-            .show()
     }
 
     private fun reproducirSonidoEfecto(tipoTono: Int, nombreEfecto: String) {

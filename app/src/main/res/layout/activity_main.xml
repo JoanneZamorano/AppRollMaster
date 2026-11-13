@@ -1,93 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="24dp">
+    android:background="@color/fondo_negro"
+    android:fillViewport="true">
 
-    <!-- Header de bienvenida -->
-    <TextView
-        android:id="@+id/tvBienvenida"
-        android:layout_width="0dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:text="¡Saludos, Aventurero!"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/btnCerrarSesion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingBottom="24dp">
 
-    <TextView
-        android:id="@+id/tvSubtituloMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:text="¿Qué deseas hacer hoy en RollMaster?"
-        android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvBienvenida" />
+        <!-- Imagen superior al 50% de la pantalla -->
+        <ImageView
+            android:id="@+id/ivCabeceraFondo"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:alpha="0.65"
+            android:contentDescription="Fondo épico"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_tiamat"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- botón pequeño para cerrar sesión (arriba a la derecha) -->
-    <Button
-        android:id="@+id/btnCerrarSesion"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Salir"
-        app:layout_constraintBottom_toBottomOf="@+id/tvBienvenida"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvBienvenida" />
+        <!-- Degradado que funde la imagen a negro en la mitad -->
+        <View
+            android:id="@+id/viewGradienteCabecera"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/gradiente_cabecera"
+            app:layout_constraintBottom_toBottomOf="@+id/ivCabeceraFondo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/ivCabeceraFondo" />
 
-    <!-- contenedor central con las opciones principales -->
-    <LinearLayout
-        android:id="@+id/layoutOpciones"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvSubtituloMenu">
-
-        <!-- Opción 1: mis personajes -->
+        <!-- Botón pequeño para cerrar sesión arriba a la derecha -->
         <Button
-            android:id="@+id/btnMisPersonajes"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginBottom="16dp"
-            android:text="Mis Personajes"
-            android:textSize="16sp" />
+            android:id="@+id/btnCerrarSesion"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="16dp"
+            android:text="Salir"
+            android:textColor="@color/rojo_claro"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Opción 2: crear personaje NUEVO -->
-        <Button
-            android:id="@+id/btnCrearPersonajeMenu"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginBottom="12dp"
-            android:text="Crear Nuevo Personaje"
-            android:textSize="16sp" />
+        <!-- Header de bienvenida con margen bajo Salir -->
+        <TextView
+            android:id="@+id/tvBienvenida"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="24dp"
+            android:lineSpacingExtra="2dp"
+            android:shadowColor="#E6000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="6"
+            android:text="¡Saludos, Aventurero!"
+            android:textColor="@color/texto_blanco"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnCerrarSesion" />
 
-        <!-- Opción 3: crear partida (Máster) -->
-        <Button
-            android:id="@+id/btnCrearPartida"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:layout_marginBottom="16dp"
-            android:text="Crear Partida (Máster)"
-            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/tvSubtituloMenu"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
+            android:shadowColor="#E6000000"
+            android:shadowDx="1"
+            android:shadowDy="2"
+            android:shadowRadius="4"
+            android:text="¿Qué deseas hacer hoy en RollMaster?"
+            android:textColor="@color/texto_gris_claro"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvBienvenida" />
 
-        <!-- Opción 4: unirse a partida (Jugador) -->
-        <Button
-            android:id="@+id/btnUnirsePartida"
-            android:layout_width="match_parent"
-            android:layout_height="64dp"
-            android:text="Unirse a Partida"
-            android:textSize="16sp" />
+        <!-- Contenedor central separado por roles (máx 480dp para tablets) -->
+        <LinearLayout
+            android:id="@+id/layoutOpciones"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="24dp"
+            android:layout_marginTop="32dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvSubtituloMenu"
+            app:layout_constraintVertical_bias="0.75"
+            app:layout_constraintWidth_max="480dp">
 
-    </LinearLayout>
+            <!-- BLOQUE JUGADOR -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0.1"
+                android:text="MODO JUGADOR"
+                android:textColor="@color/texto_gris_claro"
+                android:textSize="12sp"
+                android:textStyle="bold" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <Button
+                android:id="@+id/btnMisPersonajes"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginBottom="12dp"
+                android:text="Mis Personajes"
+                android:textColor="@color/texto_blanco"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnCrearPersonajeMenu"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:layout_marginBottom="12dp"
+                android:text="Crear Nuevo Personaje"
+                android:textColor="@color/texto_blanco"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btnUnirsePartida"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:text="Unirse a Partida"
+                android:textColor="@color/texto_blanco"
+                android:textSize="15sp" />
+
+            <!-- SEPARADOR VISUAL -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="16dp"
+                android:background="@color/borde_tarjeta" />
+
+            <!-- BLOQUE MÁSTER -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:letterSpacing="0.1"
+                android:text="MODO MÁSTER"
+                android:textColor="@color/rojo_claro"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCrearPartida"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="58dp"
+                android:text="Crear Partida"
+                android:textColor="@color/texto_blanco"
+                android:textSize="15sp"
+                app:backgroundTint="@color/superficie_tarjeta"
+                app:strokeColor="@color/rojo_principal"
+                app:strokeWidth="2dp" />
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

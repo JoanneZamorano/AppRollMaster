@@ -1,7 +1,9 @@
 package com.example.approllmaster
 
+import android.graphics.Matrix
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.approllmaster.databinding.ItemPersonajeBinding
 import com.example.approllmaster.models.Guerrero
@@ -9,7 +11,8 @@ import com.example.approllmaster.models.Mago
 import com.example.approllmaster.models.Personaje
 
 class PersonajeAdapter(
-    private var listaPersonajes: List<Personaje> = emptyList()
+    private var listaPersonajes: List<Personaje> = emptyList(),
+    private val onEliminarClick: (Personaje) -> Unit = {}
 ) : RecyclerView.Adapter<PersonajeAdapter.PersonajeViewHolder>() {
 
     inner class PersonajeViewHolder(val binding: ItemPersonajeBinding) :
@@ -36,6 +39,7 @@ class PersonajeAdapter(
                 is Mago -> tvItemRecurso.text = "Maná: ${personaje.manaActual} / ${personaje.manaMax}"
                 else -> tvItemRecurso.text = "Recurso: 100 / 100"
             }
+
             val url = personaje.avatarUrl.trim()
             val context = holder.itemView.context
             val resDrawable = if (url.isNotEmpty()) {
@@ -46,6 +50,30 @@ class PersonajeAdapter(
                 ivAvatarPersonaje.setImageResource(resDrawable)
             } else {
                 ivAvatarPersonaje.setImageResource(R.mipmap.ic_launcher)
+            }
+
+            // Recorte superior (Top-Crop) para que siempre se vea la cara del personaje
+            ivAvatarPersonaje.scaleType = ImageView.ScaleType.MATRIX
+            ivAvatarPersonaje.post {
+                val drawable = ivAvatarPersonaje.drawable ?: return@post
+                val viewWidth = ivAvatarPersonaje.width.toFloat()
+                val viewHeight = ivAvatarPersonaje.height.toFloat()
+                val imgWidth = drawable.intrinsicWidth.toFloat()
+                val imgHeight = drawable.intrinsicHeight.toFloat()
+
+                if (imgWidth > 0f && imgHeight > 0f) {
+                    val scale = maxOf(viewWidth / imgWidth, viewHeight / imgHeight)
+                    val dx = (viewWidth - imgWidth * scale) / 2f
+                    val matrix = Matrix().apply {
+                        setScale(scale, scale)
+                        postTranslate(dx, 0f)
+                    }
+                    ivAvatarPersonaje.imageMatrix = matrix
+                }
+            }
+
+            btnEliminarPersonaje.setOnClickListener {
+                onEliminarClick(personaje)
             }
         }
     }

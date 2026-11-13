@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="fondo_negro">#0D0D0D</color>
+    <color name="superficie_tarjeta">#1A1A1A</color>
+    <color name="borde_tarjeta">#2E2E2E</color>
+
+    <color name="rojo_principal">#C62828</color>
+    <color name="rojo_oscuro">#8E0000</color>
+    <color name="rojo_claro">#EF5350</color>
+
+    <color name="texto_blanco">#FFFFFF</color>
+    <color name="texto_gris_claro">#B3B3B3</color>
+
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>

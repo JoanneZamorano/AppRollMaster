@@ -39,17 +39,28 @@ class CreateCharacterActivity : AppCompatActivity() {
         val adapterAvatares = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, avatares)
         binding.actvAvatar.setAdapter(adapterAvatares)
 
+        // Inicializar vista previa con el avatar por defecto
+        actualizarPreviewAvatar("Guerrero Valiente")
+
+        // Actualizar imagen al elegir un arquetipo en el desplegable
+        binding.actvAvatar.setOnItemClickListener { _, _, position, _ ->
+            actualizarPreviewAvatar(avatares[position])
+        }
+
+        // Actualizar atributos y avatar sugerido al cambiar de clase
         binding.actvClase.setOnItemClickListener { _, _, position, _ ->
             if (clases[position] == "Guerrero") {
                 binding.tilRecurso.hint = "Furia máxima"
                 binding.etSalud.setText("120")
                 binding.etRecurso.setText("100")
                 binding.actvAvatar.setText("Guerrero Valiente", false)
+                actualizarPreviewAvatar("Guerrero Valiente")
             } else {
                 binding.tilRecurso.hint = "Maná máximo"
                 binding.etSalud.setText("80")
                 binding.etRecurso.setText("100")
                 binding.actvAvatar.setText("Mago Arcano", false)
+                actualizarPreviewAvatar("Mago Arcano")
             }
         }
 
@@ -59,6 +70,16 @@ class CreateCharacterActivity : AppCompatActivity() {
 
         binding.btnGuardarPersonaje.setOnClickListener {
             guardarPersonajeEnFirestore()
+        }
+    }
+
+    private fun actualizarPreviewAvatar(nombreArquetipo: String) {
+        val nombreDrawable = avatarUrls[nombreArquetipo] ?: "avatar_guerrero"
+        val resId = resources.getIdentifier(nombreDrawable, "drawable", packageName)
+        if (resId != 0) {
+            binding.ivPreviewAvatar.setImageResource(resId)
+        } else {
+            binding.ivPreviewAvatar.setImageResource(R.mipmap.ic_launcher)
         }
     }
 
@@ -81,7 +102,7 @@ class CreateCharacterActivity : AppCompatActivity() {
 
         val nuevoDoc = db.collection("personajes").document()
         val personajeId = nuevoDoc.id
-        val urlFinal = avatarUrls[avatarSeleccionado] ?: "https://api.dicebear.com/7.x/bottts/png?seed=$nombre"
+        val urlFinal = avatarUrls[avatarSeleccionado] ?: "avatar_guerrero"
 
         val personajeObj = if (claseSeleccionada == "Guerrero") {
             Guerrero(
@@ -115,7 +136,8 @@ class CreateCharacterActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 mostrarCarga(false)
                 Toast.makeText(
-                    this, "¡Personaje creado correctamente!", Toast.LENGTH_SHORT).show()
+                    this, "¡Personaje creado correctamente!", Toast.LENGTH_SHORT
+                ).show()
                 val intent = Intent(this, CharacterListActivity::class.java)
                 startActivity(intent)
                 finish()

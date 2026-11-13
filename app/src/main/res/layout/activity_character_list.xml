@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/fondo_negro"
     android:padding="16dp">
 
     <!-- Cabecera -->
@@ -12,9 +13,10 @@
         android:id="@+id/tvTituloLista"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="Mis Personajes"
-        android:textSize="24sp"
+        android:textColor="@color/texto_blanco"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +27,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:text="Selecciona un héroe o crea uno nuevo"
+        android:text="Gestiona tus héroes o crea uno nuevo"
+        android:textColor="@color/texto_gris_claro"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,6 +39,7 @@
         android:id="@+id/progressBarLista"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:indeterminateTint="@color/rojo_principal"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btnCrearPersonajeDesdeLista"
         app:layout_constraintEnd_toEndOf="parent"
@@ -48,6 +52,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aún no tienes ningún personaje creado."
+        android:textColor="@color/texto_gris_claro"
         android:textSize="16sp"
         android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btnCrearPersonajeDesdeLista"
@@ -66,7 +71,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvSubtituloLista"
-        tools:listitem="@android:layout/simple_list_item_2" />
+        tools:listitem="@layout/item_personaje" />
 
     <!-- Botón Crear Nuevo Personaje -->
     <Button
@@ -75,9 +80,11 @@
         android:layout_height="56dp"
         android:layout_marginBottom="8dp"
         android:text="Crear Nuevo Personaje"
+        android:textColor="@color/texto_blanco"
         app:layout_constraintBottom_toTopOf="@+id/btnVolverMenu"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_max="480dp" />
 
     <!-- Botón Volver al Menú Principal -->
     <Button
@@ -86,8 +93,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:text="Volver al Menú Principal"
+        android:textColor="@color/rojo_claro"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintWidth_max="480dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

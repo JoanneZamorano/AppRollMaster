@@ -2,85 +2,124 @@
 <com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="12dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="1dp"
-    app:strokeColor="#E0E0E0">
+    app:cardBackgroundColor="@color/superficie_tarjeta"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:strokeWidth="0dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:layout_height="wrap_content">
 
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/cardAvatarPersonaje"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            app:cardCornerRadius="28dp"
-            app:cardElevation="0dp"
-            app:strokeWidth="0dp"
+        <!-- Retrato vertical a la izquierda ocupando todo el alto de la tarjeta -->
+        <ImageView
+            android:id="@+id/ivAvatarPersonaje"
+            android:layout_width="124dp"
+            android:layout_height="0dp"
+            android:contentDescription="Retrato del personaje"
+            android:scaleType="matrix"
+            android:src="@mipmap/ic_launcher"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivAvatarPersonaje"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="Avatar del personaje"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher" />
-        </com.google.android.material.card.MaterialCardView>
-
+        <!-- Nombre del personaje -->
         <TextView
             android:id="@+id/tvItemNombre"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="8dp"
-            android:text="Nombre"
-            android:textSize="17sp"
+            android:layout_marginTop="14dp"
+            android:layout_marginEnd="4dp"
+            android:textColor="@color/texto_blanco"
+            android:textSize="20sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toStartOf="@+id/tvItemClase"
-            app:layout_constraintStart_toEndOf="@+id/cardAvatarPersonaje"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintEnd_toStartOf="@+id/btnEliminarPersonaje"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatarPersonaje"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Merlin" />
 
+        <!-- Clase del personaje debajo del nombre -->
         <TextView
             android:id="@+id/tvItemClase"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="CLASE"
-            android:textSize="12sp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="4dp"
+            android:letterSpacing="0.1"
+            android:textColor="@color/rojo_claro"
+            android:textSize="11sp"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="@+id/tvItemNombre"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tvItemNombre" />
+            app:layout_constraintEnd_toStartOf="@+id/btnEliminarPersonaje"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatarPersonaje"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemNombre"
+            tools:text="MAGO" />
 
+        <!-- Botón de eliminar vectorial arriba a la derecha -->
+        <ImageButton
+            android:id="@+id/btnEliminarPersonaje"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Eliminar personaje"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_delete_clean"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/texto_gris_claro" />
+
+        <!-- Separador sutil -->
+        <View
+            android:id="@+id/dividerItemPersonaje"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/borde_tarjeta"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatarPersonaje"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemClase" />
+
+        <!-- Salud -->
         <TextView
             android:id="@+id/tvItemSalud"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp"
-            android:text="Salud: 100 / 100"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/texto_gris_claro"
             android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/tvItemRecurso"
-            app:layout_constraintStart_toEndOf="@+id/cardAvatarPersonaje"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemNombre" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivAvatarPersonaje"
+            app:layout_constraintTop_toBottomOf="@+id/dividerItemPersonaje"
+            tools:text="Salud: 80 / 80" />
 
+        <!-- Recurso (Furia / Maná) -->
         <TextView
             android:id="@+id/tvItemRecurso"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:text="Recurso: 0 / 100"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="14dp"
+            android:textColor="@color/texto_gris_claro"
             android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/tvItemSalud"
-            app:layout_constraintTop_toBottomOf="@+id/tvItemNombre" />
+            app:layout_constraintStart_toEndOf="@+id/ivAvatarPersonaje"
+            app:layout_constraintTop_toBottomOf="@+id/tvItemSalud"
+            tools:text="Maná: 100 / 100" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </com.google.android.material.card.MaterialCardView>
