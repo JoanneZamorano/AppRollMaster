@@ -37,20 +37,22 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivCabeceraFondo" />
 
-        <!-- Botón pequeño para cerrar sesión arriba a la derecha -->
-        <Button
-            android:id="@+id/btnCerrarSesion"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <!-- Botón limpio con solo las 3 líneas arriba a la izquierda -->
+        <ImageButton
+            android:id="@+id/btnMenuUsuario"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="16dp"
             android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
-            android:text="Salir"
-            android:textColor="@color/rojo_claro"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="Menú de usuario"
+            android:padding="8dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_menu_hamburguesa"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Header de bienvenida con margen bajo Salir -->
+        <!-- Header de bienvenida -->
         <TextView
             android:id="@+id/tvBienvenida"
             android:layout_width="0dp"
@@ -69,7 +71,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnCerrarSesion" />
+            app:layout_constraintTop_toBottomOf="@+id/btnMenuUsuario" />
 
         <TextView
             android:id="@+id/tvSubtituloMenu"

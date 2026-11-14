@@ -12,6 +12,7 @@ import com.example.approllmaster.models.Personaje
 
 class PersonajeAdapter(
     private var listaPersonajes: List<Personaje> = emptyList(),
+    private val onEditarClick: (Personaje) -> Unit = {},
     private val onEliminarClick: (Personaje) -> Unit = {}
 ) : RecyclerView.Adapter<PersonajeAdapter.PersonajeViewHolder>() {
 
@@ -70,6 +71,10 @@ class PersonajeAdapter(
                     }
                     ivAvatarPersonaje.imageMatrix = matrix
                 }
+            }
+
+            holder.itemView.setOnClickListener {
+                onEditarClick(personaje)
             }
 
             btnEliminarPersonaje.setOnClickListener {
