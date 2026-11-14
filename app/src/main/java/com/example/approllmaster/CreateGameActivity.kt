@@ -3,6 +3,7 @@ package com.example.approllmaster
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,11 +22,19 @@ class CreateGameActivity : AppCompatActivity() {
     private val listaMisPartidas = mutableListOf<Partida>()
     private lateinit var adapter: PartidaMasterAdapter
 
+    private val escenariosDisponibles = listOf(
+        "Mazmorra tenebrosa",
+        "Bosque encantado",
+        "Montaña",
+        "Taberna"
+    )
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCreateGameBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        configurarDesplegableEscenarios()
         configurarRecyclerView()
         cargarMisPartidas()
 
@@ -36,12 +45,24 @@ class CreateGameActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
             binding.tilNombrePartida.error = null
-            crearSalaMaster(nombre)
+
+            val escenarioSeleccionado = binding.actvEscenario.text.toString().ifEmpty { "Mazmorra tenebrosa" }
+            crearSalaMaster(nombre, escenarioSeleccionado)
         }
 
         binding.btnVolverMenu.setOnClickListener {
             finish()
         }
+    }
+
+    private fun configurarDesplegableEscenarios() {
+        val adapterEscenarios = ArrayAdapter(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            escenariosDisponibles
+        )
+        binding.actvEscenario.setAdapter(adapterEscenarios)
+        binding.actvEscenario.setText(escenariosDisponibles[0], false)
     }
 
     private fun configurarRecyclerView() {
@@ -52,6 +73,7 @@ class CreateGameActivity : AppCompatActivity() {
                     putExtra("ID_PARTIDA", partidaSeleccionada.idPartida)
                     putExtra("CODIGO_SALA", partidaSeleccionada.codigoSala)
                     putExtra("NOMBRE_PARTIDA", partidaSeleccionada.nombrePartida)
+                    putExtra("ESCENARIO", partidaSeleccionada.escenario)
                 }
                 startActivity(intent)
             },
@@ -81,7 +103,7 @@ class CreateGameActivity : AppCompatActivity() {
             .addOnSuccessListener {
                 mostrarCarga(false)
                 Toast.makeText(this, "Sala eliminada con éxito", Toast.LENGTH_SHORT).show()
-                cargarMisPartidas() // Refresca la lista en pantalla
+                cargarMisPartidas()
             }
             .addOnFailureListener { e ->
                 mostrarCarga(false)
@@ -118,7 +140,7 @@ class CreateGameActivity : AppCompatActivity() {
             }
     }
 
-    private fun crearSalaMaster(nombre: String) {
+    private fun crearSalaMaster(nombre: String, escenario: String) {
         val userId = auth.currentUser?.uid ?: return
         mostrarCarga(true)
 
@@ -130,7 +152,8 @@ class CreateGameActivity : AppCompatActivity() {
             nombrePartida = nombre,
             codigoSala = pinAleatorio,
             idMaster = userId,
-            estado = "ESPERA"
+            estado = "ESPERA",
+            escenario = escenario
         )
 
         docRef.set(nuevaPartida)
@@ -142,6 +165,7 @@ class CreateGameActivity : AppCompatActivity() {
                     putExtra("ID_PARTIDA", docRef.id)
                     putExtra("CODIGO_SALA", pinAleatorio)
                     putExtra("NOMBRE_PARTIDA", nombre)
+                    putExtra("ESCENARIO", escenario)
                 }
                 startActivity(intent)
                 finish()

@@ -14,61 +14,84 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="14dp">
+        android:layout_height="88dp">
 
+        <!-- Imagen a sangre completa a la izquierda (igual que personajes y monstruos) -->
+        <ImageView
+            android:id="@+id/ivEscenarioPartida"
+            android:layout_width="88dp"
+            android:layout_height="0dp"
+            android:contentDescription="Escenario de la partida"
+            android:scaleType="centerCrop"
+            android:src="@drawable/bg_mazmorra"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!-- Código PIN estilo etiqueta "JEFE FINAL" arriba a la derecha -->
+        <TextView
+            android:id="@+id/chipCodigo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="14dp"
+            android:letterSpacing="0.06"
+            android:textColor="@color/rojo_claro"
+            android:textSize="11sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="ROLL84" />
+
+        <!-- Nombre de la partida -->
         <TextView
             android:id="@+id/tvNombrePartida"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="14dp"
             android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/texto_blanco"
-            android:textSize="16sp"
+            android:textSize="17sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@+id/chipCodigo"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivEscenarioPartida"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Campaña Las Minas de Phandelver" />
+            tools:text="Bosque Maldito" />
 
+        <!-- Escenario y estado sin cortes -->
         <TextView
             android:id="@+id/tvEstadoPartida"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_marginTop="6dp"
             android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textColor="@color/texto_gris_claro"
-            android:textSize="13sp"
-            app:layout_constraintEnd_toStartOf="@+id/chipCodigo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvNombrePartida"
-            tools:text="Estado: ESPERA" />
-
-        <com.google.android.material.chip.Chip
-            android:id="@+id/chipCodigo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="6dp"
-            android:textColor="@color/texto_blanco"
-            android:textStyle="bold"
-            app:chipBackgroundColor="@color/rojo_principal"
-            app:chipStrokeWidth="0dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:textSize="12sp"
             app:layout_constraintEnd_toStartOf="@+id/btnEliminarPartida"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:text="ROLL84" />
+            app:layout_constraintStart_toEndOf="@+id/ivEscenarioPartida"
+            app:layout_constraintTop_toBottomOf="@+id/tvNombrePartida"
+            tools:text="Bosque encantado • COMBATE" />
 
+        <!-- Icono de eliminar abajo a la derecha -->
         <ImageButton
             android:id="@+id/btnEliminarPartida"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="6dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:contentDescription="Eliminar partida"
-            android:padding="8dp"
+            android:padding="7dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_delete_clean"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/texto_gris_claro" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -5,6 +5,7 @@ import android.media.ToneGenerator
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +35,7 @@ class CombatTableActivity : AppCompatActivity() {
     private var estadoActual: String = "ESPERA"
     private var turnoActualIndex: Int = 0
     private var ultimoTimestampTiradaVisto: Long = System.currentTimeMillis()
+    private var escenarioActual: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +49,16 @@ class CombatTableActivity : AppCompatActivity() {
         uidActual = authRepository.currentUser?.uid ?: ""
 
         binding.tvNombreSalaMesa.text = nombrePartida
+
+        // Aplicamos escenario inicial si viniera por intent mientras carga Firestore
+        intent.getStringExtra("ESCENARIO")?.let { aplicarFondoEscenario(it) }
+
+        // Interceptar botón/gesto físico Atrás para evitar salidas accidentales
+        onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                confirmarAbandonarSala()
+            }
+        })
 
         // La cuadrícula 2x2 de sonidos solo es visible para el Máster
         if (rolUsuario == "MASTER") {
@@ -70,6 +82,30 @@ class CombatTableActivity : AppCompatActivity() {
         escucharSalaEnTiempoReal()
     }
 
+    private fun aplicarFondoEscenario(escenario: String) {
+        if (escenario == escenarioActual) return
+        escenarioActual = escenario
+
+        val imagenRes = when (escenario) {
+            "Bosque encantado" -> R.drawable.bg_bosque
+            "Montaña" -> R.drawable.bg_montana
+            "Taberna" -> R.drawable.bg_taberna
+            else -> R.drawable.bg_mazmorra
+        }
+        binding.ivFondoEscenarioSala.setImageResource(imagenRes)
+    }
+
+    private fun confirmarAbandonarSala() {
+        AlertDialog.Builder(this)
+            .setTitle("Abandonar sala")
+            .setMessage("¿Seguro que quieres abandonar la sala? Si sales de la partida en curso no podrás volver a entrar.")
+            .setPositiveButton("Abandonar") { _, _ ->
+                finish()
+            }
+            .setNegativeButton("Quedarme", null)
+            .show()
+    }
+
     private fun configurarRecyclerView() {
         adapter = CombatienteAdapter(emptyList(), "", false)
         binding.rvCombatientes.layoutManager = LinearLayoutManager(this)
@@ -88,7 +124,7 @@ class CombatTableActivity : AppCompatActivity() {
         }
 
         binding.btnSalirMesa.setOnClickListener {
-            finish()
+            confirmarAbandonarSala()
         }
     }
 
@@ -98,6 +134,9 @@ class CombatTableActivity : AppCompatActivity() {
         listenerPartida = db.collection("partidas").document(idPartida)
             .addSnapshotListener { snapshot, error ->
                 if (error != null || snapshot == null || !snapshot.exists()) return@addSnapshotListener
+
+                val escenarioFirestore = snapshot.getString("escenario") ?: "Mazmorra tenebrosa"
+                aplicarFondoEscenario(escenarioFirestore)
 
                 estadoActual = snapshot.getString("estado") ?: "ESPERA"
                 turnoActualIndex = (snapshot.getLong("turnoActualIndex") ?: 0L).toInt()

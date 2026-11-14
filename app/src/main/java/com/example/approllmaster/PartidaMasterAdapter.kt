@@ -29,7 +29,15 @@ class PartidaMasterAdapter(
         with(holder.binding) {
             tvNombrePartida.text = partida.nombrePartida
             chipCodigo.text = partida.codigoSala
-            tvEstadoPartida.text = "Estado: ${partida.estado}"
+            tvEstadoPartida.text = "${partida.escenario} • ${partida.estado}"
+
+            val imagenEscenario = when (partida.escenario) {
+                "Bosque encantado" -> R.drawable.bg_bosque
+                "Montaña" -> R.drawable.bg_montana
+                "Taberna" -> R.drawable.bg_taberna
+                else -> R.drawable.bg_mazmorra
+            }
+            ivEscenarioPartida.setImageResource(imagenEscenario)
 
             root.setOnClickListener {
                 onPartidaClick(partida)

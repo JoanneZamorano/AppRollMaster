@@ -41,7 +41,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:hint="Nombre de la partida / Campaña"
+        android:hint="Nombre de la partida"
         android:textColorHint="@color/texto_gris_claro"
         app:boxBackgroundColor="@color/superficie_tarjeta"
         app:boxCornerRadiusBottomEnd="12dp"
@@ -66,16 +66,49 @@
             android:textColor="@color/texto_blanco" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <!-- Desplegable de Escenario -->
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilEscenario"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:hint="Escenario de la sala"
+        android:textColorHint="@color/texto_gris_claro"
+        app:boxBackgroundColor="@color/superficie_tarjeta"
+        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusBottomStart="12dp"
+        app:boxCornerRadiusTopEnd="12dp"
+        app:boxCornerRadiusTopStart="12dp"
+        app:boxStrokeColor="@color/rojo_principal"
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="2dp"
+        app:endIconTint="@color/texto_gris_claro"
+        app:hintTextColor="@color/rojo_claro"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tilNombrePartida"
+        app:layout_constraintWidth_max="480dp">
+
+        <AutoCompleteTextView
+            android:id="@+id/actvEscenario"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:text="Mazmorra tenebrosa"
+            android:textColor="@color/texto_blanco" />
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
         android:id="@+id/btnGenerarPartida"
         android:layout_width="0dp"
         android:layout_height="54dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="14dp"
         android:text="Abrir Sala de Juego"
         android:textColor="@color/texto_blanco"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tilNombrePartida"
+        app:layout_constraintTop_toBottomOf="@+id/tilEscenario"
         app:layout_constraintWidth_max="480dp" />
 
     <ProgressBar

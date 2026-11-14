@@ -6,9 +6,9 @@ data class Partida(
     val codigoSala: String = "", // por ejemplo ROLL84
     val idMaster: String = "",
     val estado: String = "ESPERA", // ESPERA/EN_COMBATE/FINALIZADA
+    val escenario: String = "Mazmorra tenebrosa", // Mazmorra tenebrosa, Bosque encantado, Montaña, Taberna
     val fechaCreacion: Long = System.currentTimeMillis()
 )
-
 
 data class TiradaDado(
     val idTirada: String = "",
